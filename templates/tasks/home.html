@@ -1,0 +1,14 @@
+{% extends 'base/master.html' %}
+
+{% block title%}
+Home
+{% endblock  %}
+
+{% block content  %}
+ <hi> Tareas: </h1>
+    <ul class="list-group">
+        {% for tasks in tasks %}
+        <li class="list-group-item text-center list-group-item-{% if tasks.done %}success{% else %}danger{% endif %}">{{ tasks.description }}</li>
+        {%  endfor %}
+      </ul>
+{% endblock  %}
