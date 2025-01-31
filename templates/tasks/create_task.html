@@ -6,7 +6,7 @@ Crear Tareas
 
 {% block content  %}
 <h1 class="mb-3 mt-3" >Nueva Tarea: </h1>
-<form metod="POST">{% csrf_token %}
+<form method="POST">{% csrf_token %}
     <div class="from-group">
       <label for="exampleInputEmail1" class="form-label">Descripcion:</label>
       <input type="text" class="form-control" name='task'>
