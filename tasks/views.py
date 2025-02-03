@@ -1,5 +1,6 @@
 from django.shortcuts import render, reverse, redirect
 from .models import Task
+from .forms import TaskForm
 
 def home_view(request):
     tasks = Task.objects.all()
@@ -21,18 +22,22 @@ def detail_task_view(request, pk):
     task = Task.objects.get(id=pk)
 
     if request.POST:
-        new_description = request.POST.get('task_description')
-        new_done = request.POST.get('task_done')
-        if new_done == 'on':
-            new_done = True
-        else:
-            new_done = False
-        task.description = new_description
-        task.done = new_done
-        task.save()
-        return redirect(reverse('home-view'))
-
+        if 'saveTask' in request.POST:
+            new_description = request.POST.get('task_description')
+            new_done = request.POST.get('task_done')
+            new_done = True if new_done == 'on' else False
+            task.description = new_description
+            task.done = new_done
+            task.save()
+            return redirect(reverse('home-view'))
+        if 'deleteTask' in request.POST:
+            task.delete()
+            return redirect(reverse('home-view'))
     context = {
         'task': task
     }
     return render(request, 'tasks/detail_task.html', context)
+
+def crate_form_task_view(request):
+    form = TaskForm()
+    return render(request, 'tasks/crate_form_task.html', {'form': form})

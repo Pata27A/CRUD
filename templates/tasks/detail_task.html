@@ -14,7 +14,12 @@ Tarea
         <label>Terminado</label>
         <input type="checkbox" name="task_done" {% if task.done %}checked {% endif %} >
         </div>
-        <button class="btn btn-danger">Guardar</button>    
+        <button class="btn btn-danger"  name="saveTask" >Guardar</button>
+            
+    </form>
+    <form method="POST"> {% csrf_token %}
+        <button class="btn btn-primary" name="deleteTask" >Eliminar</button>
     </form>
 
 {% endblock  %}
+
