@@ -39,5 +39,12 @@ def detail_task_view(request, pk):
     return render(request, 'tasks/detail_task.html', context)
 
 def crate_form_task_view(request):
-    form = TaskForm()
+    if request.method == 'POST':
+        form = TaskForm(request.POST)
+        if form.is_valid():
+            description = form.cleaned_data['description'] 
+            Task.objects.create(description=description)
+            return redirect(reverse('home-view'))
+    else:     
+        form = TaskForm()    
     return render(request, 'tasks/crate_form_task.html', {'form': form})
