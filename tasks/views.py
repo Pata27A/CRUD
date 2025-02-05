@@ -1,6 +1,6 @@
 from django.shortcuts import render, reverse, redirect
 from .models import Task
-from .forms import TaskForm
+from .forms import TaskForm, TaskModelForm
 
 def home_view(request):
     tasks = Task.objects.all()
